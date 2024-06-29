@@ -1,0 +1,10 @@
+﻿{
+  "application": {
+    "Browser": "chrome",
+    "Enviroment": "staging",
+    "url": "http://192.168.237.15:3000",
+    "timeout.webdriver.wait.seconds": 10,
+    "timeout.webdriver.pageLoad.seconds": 120,
+    "timeout.webdriver.asyncJavaScript.seconds": 30
+  }
+}
