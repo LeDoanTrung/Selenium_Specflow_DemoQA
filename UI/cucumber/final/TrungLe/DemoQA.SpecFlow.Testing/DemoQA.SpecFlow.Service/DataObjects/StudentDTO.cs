@@ -1,15 +1,8 @@
-﻿using DemoQA_Selenium.Library;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
 
 namespace DemoQA_Selenium.DataObjects
 {
-    public class Student
+    public class StudentDTO
     {
         [JsonProperty("firstName")] 
         

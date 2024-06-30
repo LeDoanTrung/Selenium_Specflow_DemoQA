@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using DemoQA.SpecFlow.Core.ScrollHelper;
+using FluentAssertions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -54,6 +55,13 @@ namespace TMS_Selenium.Library
         public void ClickOnElement()
         {
             IWebElement element = WaitForElementToBeClickable();
+            element.Click();
+        }
+
+        public void ClickAndScrollToElement()
+        {
+            IWebElement element = WaitForElementToBeClickable();
+            ScrollHelper.ScrollToElement(BrowserFactory.WebDriver, this);
             element.Click();
         }
 

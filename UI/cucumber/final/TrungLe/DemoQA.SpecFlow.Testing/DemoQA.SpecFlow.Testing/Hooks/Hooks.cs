@@ -4,6 +4,12 @@ using TMS.Core.ExtentReport;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
+using DemoQA.SpecFlow.Core;
+using TMS_SpecFlow_Testing.DataObjects;
+using DemoQA.SpecFlow.Core.API;
+using TMS.Core.Util;
+using TMS_SpecFlow_Testing.Constants;
+using DemoQA.SpecFlow.Core.Extensions;
 
 
 namespace SpecFlowProject.StepDefinitions
@@ -12,13 +18,13 @@ namespace SpecFlowProject.StepDefinitions
     public class Hooks
     {
         public static IConfiguration Config;
-        const string AppSettingPath = "Configurations\\appsettings.json";
+        const string AppSettingPath = "Configuration\\appsetting.json";
         private readonly ScenarioContext _scenerioContext;
 
         public Hooks(ScenarioContext context)
         {
             this._scenerioContext = context;
-            ExtentTestManager.CreateParentTest(TestContext.CurrentContext.Test.ClassName);
+            ExtentTestManager.CreateParentTest(TestContext.CurrentContext.Test.ClassName);         
         }
 
         [BeforeTestRun]
@@ -52,20 +58,17 @@ namespace SpecFlowProject.StepDefinitions
         [BeforeScenario]
         public void SetUpScenario(ScenarioContext context)
         {
-            string browser = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:Browser");
-            double timeOutSec = double.Parse(ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:timeout.webdriver.wait.seconds"));
-            string pageLoadTime = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:timeout.webdriver.pageLoad.seconds");
-            string asyncJsTime = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:timeout.webdriver.asyncJavaScript.seconds");
+            var config = Hooks.Config;
 
-            BrowserFactory.InitDriver(browser);
-            BrowserFactory.WebDriver.Manage().Window.Maximize();
-            BrowserFactory.WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(timeOutSec); 
-            BrowserFactory.WebDriver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(double.Parse(pageLoadTime));
-            BrowserFactory.WebDriver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(double.Parse(asyncJsTime));
+            var browser = GetConfigValue("application:Browser");
+            var timeOutSec = GetConfigValueAsDouble("application:timeout.webdriver.wait.seconds");
+            var pageLoadTime = GetConfigValueAsDouble("application:timeout.webdriver.pageLoad.seconds");
+            var asyncJsTime = GetConfigValueAsDouble("application:timeout.webdriver.asyncJavaScript.seconds");
 
+            InitializeBrowser(browser, timeOutSec, pageLoadTime, asyncJsTime);
             ExtentTestManager.CreateScenarioContext(context);
 
-            BrowserFactory.WebDriver.Url = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:url");
+            BrowserFactory.WebDriver.Url = GetConfigValue("application:DomainURL");
 
             Console.WriteLine("Before Scenario");
         }
@@ -83,6 +86,26 @@ namespace SpecFlowProject.StepDefinitions
         {
             ExtentTestManager.UpdateStepContext();
             Console.WriteLine("After Step");
+        }
+
+        private string GetConfigValue(string key)
+        {
+            return ConfigurationHelper.GetConfigurationByKey(Hooks.Config, key);
+        }
+
+        private double GetConfigValueAsDouble(string key)
+        {
+            return double.Parse(GetConfigValue(key));
+        }
+
+        private void InitializeBrowser(string browser, double implicitWait, double pageLoadTimeout, double asyncJsTimeout)
+        {
+            BrowserFactory.InitDriver(browser);
+            var driver = BrowserFactory.WebDriver;
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(implicitWait);
+            driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(pageLoadTimeout);
+            driver.Manage().Timeouts().AsynchronousJavaScript = TimeSpan.FromSeconds(asyncJsTimeout);
         }
 
     }

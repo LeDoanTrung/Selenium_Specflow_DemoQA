@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TMS_SpecFlow_Testing.DataObjects
 {
-    public class Account
+    public class AccountDTO
     {
         [JsonProperty("username")]
         public string Username { get; set; }

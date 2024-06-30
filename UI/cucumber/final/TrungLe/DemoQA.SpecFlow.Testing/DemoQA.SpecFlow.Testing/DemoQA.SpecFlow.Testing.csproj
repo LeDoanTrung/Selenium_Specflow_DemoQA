@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\RegisterStudent - Copy.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.9.40" />
@@ -20,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="Configurations\**">
+		<None Update="Configuration\**">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
@@ -29,5 +33,22 @@
 		<None Update="TestData\**">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="TestData\Images\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Features\AddBookToCollection.feature.cs">
+	    <DependentUpon>AddBookToCollection.feature</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <SpecFlowFeatureFiles Update="Features\AddBookToCollection.feature">
+	    <Visible>$(UsingMicrosoftNETSdk)</Visible>
+	    <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+	  </SpecFlowFeatureFiles>
 	</ItemGroup>
 </Project>

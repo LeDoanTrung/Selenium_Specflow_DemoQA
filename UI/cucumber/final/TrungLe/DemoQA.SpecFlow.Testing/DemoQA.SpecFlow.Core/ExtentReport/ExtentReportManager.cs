@@ -2,7 +2,7 @@
 using AventStack.ExtentReports.Reporter;
 using System.Reflection;
 
-namespace TMS.Core.ExtentReport
+namespace DemoQA.SpecFlow.Core
 {
     public class ExtentReportManager
     {

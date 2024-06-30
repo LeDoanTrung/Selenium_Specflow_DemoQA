@@ -3,7 +3,7 @@ using RestSharp.Authenticators;
 using RestSharp.Authenticators.OAuth2;
 using RestSharp.Serializers.NewtonsoftJson;
 
-namespace DemoQA.Core.API
+namespace DemoQA.SpecFlow.Core.API
 {
     public class APIClient
     {

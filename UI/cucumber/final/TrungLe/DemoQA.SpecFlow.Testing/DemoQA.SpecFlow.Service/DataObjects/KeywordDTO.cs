@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DemoQA_Selenium.DataObjects
 {
-    public class SearchKeyword
+    public class KeywordDTO
     {
         [JsonProperty("keyword")]
         public string Keyword { get; set; }

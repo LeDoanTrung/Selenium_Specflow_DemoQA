@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace TMS.Core.Configuration
+namespace DemoQA.SpecFlow.Core.Configuration
 {
     public class ConfigurationHelper
     {
