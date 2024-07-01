@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\AddBookToCollection - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\RegisterStudent - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\SearchBook - Copy.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,15 +39,30 @@
 
 	<ItemGroup>
 	  <Folder Include="TestData\Images\" />
+	  <Folder Include="TestData\Json\" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Features\DeleteBook.feature.cs">
+	    <DependentUpon>DeleteBook.feature</DependentUpon>
+	  </Compile>
+	  <Compile Update="Features\SearchBook.feature.cs">
+	    <DependentUpon>SearchBook.feature</DependentUpon>
+	  </Compile>
 	  <Compile Update="Features\AddBookToCollection.feature.cs">
 	    <DependentUpon>AddBookToCollection.feature</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <SpecFlowFeatureFiles Update="Features\DeleteBook.feature">
+	    <Visible>$(UsingMicrosoftNETSdk)</Visible>
+	    <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+	  </SpecFlowFeatureFiles>
+	  <SpecFlowFeatureFiles Update="Features\SearchBook.feature">
+	    <Visible>$(UsingMicrosoftNETSdk)</Visible>
+	    <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+	  </SpecFlowFeatureFiles>
 	  <SpecFlowFeatureFiles Update="Features\AddBookToCollection.feature">
 	    <Visible>$(UsingMicrosoftNETSdk)</Visible>
 	    <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>

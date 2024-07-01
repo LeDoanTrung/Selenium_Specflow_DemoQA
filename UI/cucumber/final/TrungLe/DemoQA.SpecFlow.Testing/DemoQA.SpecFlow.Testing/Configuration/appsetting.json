@@ -6,6 +6,7 @@
     "RegisterUrl": "https://demoqa.com/automation-practice-form",
     "BookStoreURL": "https://demoqa.com/books",
     "LoginURL": "https://demoqa.com/login",
+    "ProfileURL": "https://demoqa.com/profile",
     "timeout.webdriver.wait.seconds": 10,
     "timeout.webdriver.pageLoad.seconds": 180,
     "timeout.webdriver.asyncJavaScript.seconds": 30

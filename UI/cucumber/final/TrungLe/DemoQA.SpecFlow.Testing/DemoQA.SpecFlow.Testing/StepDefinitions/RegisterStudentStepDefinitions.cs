@@ -1,3 +1,4 @@
+using DemoQA.SpecFlow.Core.API;
 using DemoQA.SpecFlow.Core.Configuration;
 using DemoQA_Selenium.DataObjects;
 using DemoQA_Selenium.Pages;
@@ -16,18 +17,12 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
     {
         private RegisterStudentPage _registerPage;
         private readonly ScenarioContext _scenarioContext;
+        private APIClient _apiClient;
 
         public RegisterStudentStepDefinitions(ScenarioContext scenarioContext)
         {
             this._scenarioContext = scenarioContext;
             _registerPage = new RegisterStudentPage();
-        }
-
-
-        [Given(@"the user is on Student Registration Form page")]
-        public void GivenTheUserIsOnStudentRegistrationFormPage()
-        {
-            BrowserFactory.WebDriver.Url = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:RegisterUrl");
         }
 
         [When(@"the user inputs the following data into Student Registration Form")]

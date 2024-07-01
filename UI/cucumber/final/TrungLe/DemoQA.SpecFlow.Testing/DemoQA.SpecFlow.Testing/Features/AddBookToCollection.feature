@@ -3,7 +3,7 @@
 Background:
 	Given the user is logged into the application with a "valid_account"
 
-#Note: This case can not implement becau
+#Note: This case cannot be implemented because there is an issue with the UI in the Add Book To Collection feature.
 
 #@Successfully
 #Scenario Outline: User add book to collection successfully

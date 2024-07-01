@@ -10,101 +10,55 @@ namespace DemoQA_Selenium.Pages
     public class ProfilePage : BasePage
     {
         //Web Element
-        private Element userNameValue = new Element(By.Id("userName-value"));
-        private Element searchBar = new Element(By.Id("searchBox"));
-        private Element deleteIcon = new Element(By.Id("delete-record-undefined"));
-        string headerLocator = "//div[contains(@role,'columnheader')]/div[contains(@class,'header')]";
-        private string searchResultRow = "//div[@role='rowgroup']/div[@role='row']";
-        private string cellLocator = "//div[@role='gridcell']";
-        private Element modalDelete = new Element(By.CssSelector("div.modal-content"));
-        private Element modalOkButton = new Element(By.Id("closeSmallModal-ok"));
-        private Element noRowsFoundMessage = new Element(By.XPath("//div[text()='No rows found']"));
+        private Element _searchBar = new Element(By.Id("searchBox"));
+        private Element _modalDelete = new Element(By.CssSelector("div.modal-content"));
+        private Element _modalOkButton = new Element(By.Id("closeSmallModal-ok"));
+        private Element _noRowsFoundMessage = new Element(By.XPath("//div[text()='No rows found']"));
+        private Element _deletedIcon(string title) 
+        { 
+            return new Element(By.XPath($"//a[text()='{title}']/ancestor::div[@role='row']//span[contains(@id,'delete')]")); 
+        }
+        private Element _bookTitle (string title)
+        {
+            return new Element(By.XPath($"//a[text()='{title}']"));
+        }
+
+
         //Method
-        public void IsLoginSuccessfully(string username)
-        {
-            Assert.IsTrue(userNameValue.IsElementDisplayed(), "Login unsuccessfully.");
-            Assert.AreEqual(userNameValue.GetText(), username, "Username is displayed incorrectly.");
-        }
-
-        public int FindIndexOfHeaderColumn(string headerName)
-        {
-            var headerElements = BrowserFactory.WebDriver.FindElements(By.XPath(headerLocator));
-
-            for (int i = 0; i < headerElements.Count; i++)
-            {
-
-                if (headerElements[i].Text.Equals(headerName, StringComparison.OrdinalIgnoreCase))
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
         public void SearchBook(string keyword)
         {
-            searchBar.ClearText();
-            searchBar.InputText(keyword);
+            _searchBar.ClearText();
+            _searchBar.InputText(keyword);
         }
 
-        public void DeleteBook(string keyword)
+        public bool IsBookExist(string title)
         {
-            SearchBook(keyword);
-
-            int titleIndex = FindIndexOfHeaderColumn("Title");
-
-            if (titleIndex == -1)
+            return _bookTitle(title).IsElementExist();
+        }
+        public void ClickOnDeleteIcon(string title)
+        {
+            if (IsBookExist(title))
             {
-                throw new Exception("Title column not found.");
+                _deletedIcon(title).ClickOnElement();
             }
-
-            var rows = BrowserFactory.WebDriver.FindElements(By.XPath(searchResultRow));
-
-            foreach (var row in rows)
-            {
-                var cells = row.FindElements(By.XPath(cellLocator));
-
-                string titleText = cells[titleIndex].Text;
-
-                if (titleText.Equals(keyword, StringComparison.OrdinalIgnoreCase))
-                {
-                    deleteIcon.ClickOnElement();
-
-                    if (modalDelete.IsElementDisplayed())
-                    {
-                        modalOkButton.ClickOnElement();
-                        break;
-                    }
-                }
-
-            }
-
         }
 
-        public void VerifyDeleteBookSuccessfully(string keyword)
+        public void ClickOnOkButton()
+        {
+            _modalOkButton.ClickOnElement();
+        }
+
+        public void CloseAlertMessage(string expectedMessage)
         {
             var alert = WaitForAlert();
-            Assert.IsNotNull(alert, "Alert not displayed.");
-            Assert.AreEqual("Book deleted.", alert.Text, "Alert message mismatch.");
+            alert.Should().NotBeNull("Alert not displayed.");
+            alert.Text.Should().Be(expectedMessage, "Alert message mismatch.");
             alert.Accept();
-
-            SearchBook(keyword);
-            //Verify that deleted book is not shown in the search result
-            bool noResults = noRowsFoundMessage.IsElementDisplayed();
-            Assert.IsTrue(noResults, "The book still exists after deletion.");
         }
 
-        private IAlert WaitForAlert()
+        public void VerifyAddedBookInformation()
         {
-            try
-            {
-                return BrowserFactory.Wait.Until(ExpectedConditions.AlertIsPresent());
-            }
-            catch (WebDriverTimeoutException)
-            {
-                return null;
-            }
+            //TO DO: Implement code to verify added book's information 
         }
     }
 }

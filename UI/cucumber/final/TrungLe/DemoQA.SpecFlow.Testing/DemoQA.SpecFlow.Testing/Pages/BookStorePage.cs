@@ -5,28 +5,27 @@ using TMS_SpecFlow_Testing.Pages;
 
 namespace DemoQA_Selenium.Pages
 {
-    public class SearchBookPage : BasePage
+    public class BookStorePage : BasePage
     {
         //Web Element
-        private Element searchBar = new Element(By.Id("searchBox"));
-        string headerLocator = "//div[contains(@role,'columnheader')]/div[contains(@class,'header')]";
-        private string searchResultRow = "//div[@role='rowgroup']/div[@role='row']";
-        private string cellLocator = "//div[@role='gridcell']";
-        private Element nextButton = new Element(By.XPath("//button[text()= 'Next']"));
-        private Element noRowsFoundMessage = new Element(By.XPath("//div[text()='No rows found']"));
+        private Element _searchBar = new Element(By.Id("searchBox"));
+        private string _headerLocator = "//div[contains(@role,'columnheader')]/div[contains(@class,'header')]";
+        private string _searchResultRow = "//div[@role='rowgroup']/div[@role='row']";
+        private string _cellLocator = "//div[@role='gridcell']";
+        private Element _nextButton = new Element(By.XPath("//button[text()= 'Next']"));
+        private Element _noRowsFoundMessage = new Element(By.XPath("//div[text()='No rows found']"));
 
         //Page Method
         public void EnterSearchKeyword(string keyword)
         {
-            searchBar.ClearText();
-            searchBar.InputText(keyword);
+            _searchBar.ClearText();
+            _searchBar.InputText(keyword);
         }
-
 
         public int FindIndexOfHeaderColumn(string headerName)
         {
             // Get all column header elements
-            var headerElements = BrowserFactory.WebDriver.FindElements(By.XPath(headerLocator));
+            var headerElements = BrowserFactory.WebDriver.FindElements(By.XPath(_headerLocator));
 
             for (int i = 0; i < headerElements.Count; i++)
             {
@@ -56,12 +55,12 @@ namespace DemoQA_Selenium.Pages
             do
             {
                 // Get all rows in the current page
-                var rows = BrowserFactory.WebDriver.FindElements(By.XPath(searchResultRow));
+                var rows = BrowserFactory.WebDriver.FindElements(By.XPath(_searchResultRow));
 
                 foreach (var row in rows)
                 {
                     // Get cells in the row
-                    var cells = row.FindElements(By.XPath(cellLocator));
+                    var cells = row.FindElements(By.XPath(_cellLocator));
 
                     string titleText = cells.ElementAt(titleIndex).Text;
                     string authorText = cells.ElementAt(authorIndex).Text;
@@ -76,23 +75,17 @@ namespace DemoQA_Selenium.Pages
 
                 }
                 // Check if Next button is disabled
-                if (nextButton.IsDisabled())
+                if (_nextButton.IsDisabled())
                 {
                     break;
                 }
-                nextButton.ClickOnElement();
+                _nextButton.ClickOnElement();
             } while (true);
 
             if (allRowsContainKeyword)
             {
                 return true; //Return true when all rows match the keyword
             }
-
-            if (noRowsFoundMessage.IsElementDisplayed()) //No result matched
-            {
-                return true;
-            }
-
             return allRowsContainKeyword;
         }
 
@@ -100,5 +93,22 @@ namespace DemoQA_Selenium.Pages
         {
             return !string.IsNullOrWhiteSpace(text) && text.Contains(keyword, StringComparison.OrdinalIgnoreCase);
         }
+
+        private void SelectBook()
+        {
+            //TO DO: Implement code to select books
+        }
+
+        private void ClickOnAddButton()
+        {
+            //TO DO: Implement code to click on Add button
+        }
+
+        public void VerifyAlertMessage()
+        {
+            //TO DO: Implement code to verify message
+        }
+
+
     }
 }

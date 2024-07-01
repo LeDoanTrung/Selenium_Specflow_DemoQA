@@ -15,5 +15,6 @@ namespace DemoQA.SpecFlow.Service
         //Account Endpoint
         public const string GetUserDetailEndPoint = "/Account/v1/User/{0}";
         public const string GenerateTokenEndPoint = "/Account/v1/GenerateToken";
+        public const string AuthorizedUserEndPoint = "/Account/v1/Authorized";
     }
 }

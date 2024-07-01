@@ -20,13 +20,17 @@ namespace DemoQA.SpecFlow.Service.Service
             _client = client;
         }
 
-        public async Task<RestResponse<UserResponseDTO>> GetUserDetailAsync(string userId, string token)
+        public async Task<RestResponse> AuthorizedUser(string username, string password)
         {
-            return await _client.CreateRequest(String.Format(APIConstant.GetUserDetailEndPoint, userId))
-                   .AddHeader("accept", ContentType.Json)
-                   .AddHeader("Content-Type", ContentType.Json)
-                   .AddAuthorizationHeader(token)
-                   .ExecuteGetAsync<UserResponseDTO>();
+            return await _client.CreateRequest(APIConstant.AuthorizedUserEndPoint)
+                .AddHeader("accept", ContentType.Json)
+                .AddHeader("Content-Type", ContentType.Json)
+                .AddBody(new TokenRequestDTO
+                {
+                    UserName = username,
+                    Password = password
+                }, ContentType.Json)
+                .ExecutePostAsync();
         }
 
         public async Task<RestResponse> GenerateTokenAsync(string username, string password)

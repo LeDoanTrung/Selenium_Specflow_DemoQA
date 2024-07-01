@@ -8,7 +8,4 @@
 	<ItemGroup>
 		<ProjectReference Include="..\DemoQA.SpecFlow.Core\DemoQA.SpecFlow.Core.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="DataProvider\" />
-	</ItemGroup>
 </Project>

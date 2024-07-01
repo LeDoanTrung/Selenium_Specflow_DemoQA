@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoQA.SpecFlow.Testing", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoQA.SpecFlow.Core", "DemoQA.SpecFlow.Core\DemoQA.SpecFlow.Core.csproj", "{E2B05337-DB42-41A7-BC8C-5A4C3149C99E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoQA.SpecFlow.Service", "DemoQA.SpecFlow.Service\DemoQA.SpecFlow.Service.csproj", "{3D365BAA-9BBB-4152-B82C-2A17CD0EDBD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoQA.SpecFlow.Service", "DemoQA.SpecFlow.Service\DemoQA.SpecFlow.Service.csproj", "{3D365BAA-9BBB-4152-B82C-2A17CD0EDBD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

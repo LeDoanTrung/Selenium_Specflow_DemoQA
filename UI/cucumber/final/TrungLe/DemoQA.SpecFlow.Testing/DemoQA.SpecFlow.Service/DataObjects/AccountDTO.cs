@@ -15,6 +15,9 @@ namespace TMS_SpecFlow_Testing.DataObjects
         [JsonProperty("password")]
         public string Password { get; set; }
 
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
     }
 
 }
