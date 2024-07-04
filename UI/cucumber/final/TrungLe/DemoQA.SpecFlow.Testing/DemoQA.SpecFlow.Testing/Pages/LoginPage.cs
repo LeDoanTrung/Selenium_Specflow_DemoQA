@@ -10,26 +10,26 @@ namespace DemoQA.SpecFlow.Testing.Pages
     public class LoginPage : BasePage
     {
         //Web Element
-        private Element userName = new Element(By.Id("userName"));
-        private Element password = new Element(By.Id("password"));
-        private Element loginButton = new Element(By.Id("login"));
+        private Element _userName = new Element(By.Id("userName"));
+        private Element _password = new Element(By.Id("password"));
+        private Element _loginButton = new Element(By.Id("login"));
 
         //Method
         public void InputUserName(string username)
         {
-            userName.ClearText();
-            userName.InputText(username);
+            _userName.ClearText();
+            _userName.InputText(username);
         }
 
         public void InputPassword(string password)
         {
-            this.password.ClearText();
-            this.password.InputText(password);
+            this._password.ClearText();
+            this._password.InputText(password);
         }
 
         public void clickOnLoginBtn()
         {
-            loginButton.ClickAndScrollToElement();
+            _loginButton.ClickAndScrollToElement();
         }
 
         public ProfilePage Login(AccountDTO account)

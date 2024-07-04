@@ -17,7 +17,6 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
     {
         private RegisterStudentPage _registerPage;
         private readonly ScenarioContext _scenarioContext;
-        private APIClient _apiClient;
 
         public RegisterStudentStepDefinitions(ScenarioContext scenarioContext)
         {
