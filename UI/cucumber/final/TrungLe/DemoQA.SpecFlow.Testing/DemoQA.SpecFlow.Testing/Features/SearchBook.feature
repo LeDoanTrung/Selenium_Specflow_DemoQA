@@ -1,7 +1,7 @@
 ﻿Feature: Search Book with multiple results
 
 @Successfully
-Scenario Outline: User search book successfully with multiple results
+Scenario Outline: User searchs book successfully with multiple results
 	Given there are books named with following title
 		| title                                     |
 		| Learning JavaScript Design Patterns       |

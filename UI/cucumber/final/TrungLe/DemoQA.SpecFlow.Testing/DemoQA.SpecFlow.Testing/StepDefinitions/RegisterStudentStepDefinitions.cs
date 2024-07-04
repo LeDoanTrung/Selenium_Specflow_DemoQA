@@ -46,7 +46,7 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
         }
 
         [Then(@"all information of student form is shown")]
-        public void ThenAllInformationOfStudentFormIsShown()
+        public void ThenAllInformationOfStudentFormIsShown() 
         {
             var student = this._scenarioContext[nameof(StudentDTO)] as StudentDTO;
             _registerPage.VerifyStudentInformation(student);

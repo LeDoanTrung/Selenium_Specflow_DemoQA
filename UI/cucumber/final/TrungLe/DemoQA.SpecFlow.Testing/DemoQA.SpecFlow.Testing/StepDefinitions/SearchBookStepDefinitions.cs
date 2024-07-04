@@ -34,7 +34,13 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
         [Then(@"all books match with ""(.*)"" will be displayed")]
         public void ThenAllBooksMatchWithWillBeDisplayed(string keyword)
         {
-            _bookStorePage.VerifySearchResult(keyword);
+            _bookStorePage.VerifySearchResult(keyword).Should().BeTrue();
+
+            //Verify the total search result that matches the total given books
+            var books = this._scenarioContext["books"] as List<BookDTO>;
+            var totalBooks = books.Count();
+            var actualBooks = _bookStorePage.GetSearchResultCount();
+            actualBooks.Should().Be(totalBooks);
         }
 
 

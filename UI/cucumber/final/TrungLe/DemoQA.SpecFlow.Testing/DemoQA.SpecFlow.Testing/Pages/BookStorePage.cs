@@ -10,10 +10,11 @@ namespace DemoQA_Selenium.Pages
         //Web Element
         private Element _searchBar = new Element(By.Id("searchBox"));
         private string _headerLocator = "//div[contains(@role,'columnheader')]/div[contains(@class,'header')]";
-        private string _searchResultRow = "//div[@role='rowgroup']/div[@role='row']";
+        private string _searchResultLocator = "//div[@role='rowgroup']/descendant::a";
         private string _cellLocator = "//div[@role='gridcell']";
         private Element _nextButton = new Element(By.XPath("//button[text()= 'Next']"));
         private Element _noRowsFoundMessage = new Element(By.XPath("//div[text()='No rows found']"));
+
 
         //Page Method
         public void EnterSearchKeyword(string keyword)
@@ -55,7 +56,7 @@ namespace DemoQA_Selenium.Pages
             do
             {
                 // Get all rows in the current page
-                var rows = BrowserFactory.WebDriver.FindElements(By.XPath(_searchResultRow));
+                var rows = BrowserFactory.WebDriver.FindElements(By.XPath(_searchResultLocator));
 
                 foreach (var row in rows)
                 {
@@ -92,6 +93,12 @@ namespace DemoQA_Selenium.Pages
         private bool IsKeywordInText(string keyword, string text)
         {
             return !string.IsNullOrWhiteSpace(text) && text.Contains(keyword, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public int GetSearchResultCount()
+        {
+            var rows = BrowserFactory.WebDriver.FindElements(By.XPath(_searchResultLocator));
+            return rows.Count;
         }
 
         private void SelectBook()

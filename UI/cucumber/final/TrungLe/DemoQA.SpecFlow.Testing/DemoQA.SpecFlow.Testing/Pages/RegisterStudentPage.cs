@@ -16,40 +16,40 @@ namespace DemoQA_Selenium.Pages
         private Element _firstName = new Element(By.Id("firstName"));
         private Element _lastName = new Element(By.Id("lastName"));
         private Element _email = new Element(By.Id("userEmail"));
-        private Element _gender(string gender) 
-        { 
-            return new Element(By.XPath($"//label[.='{gender}']")); 
-        }
         private Element _mobile = new Element(By.Id("userNumber"));
         private Element _dateOfBirth = new Element(By.Id("dateOfBirthInput"));
         private Element _yearDropdown = new Element(By.XPath("//select[contains(@class,'year')]"));
         private Element _monthDropdown = new Element(By.XPath("//select[contains(@class,'month')]"));
-        private Element _dayOfBirthValue(string month, string day) 
-        { 
-            return new Element(By.XPath($"//div[contains(@class,'day') and contains(@aria-label,'{month}') and .='{day}']")); 
-        }
         private Element _subjectsInput = new Element(By.XPath("//div[@id='subjectsContainer']//input"));
-        private Element _hobbyOption(string hobby) 
-        { 
-            return new Element(By.XPath($"//label[text()='{hobby}']")); 
-        }
         private Element _pictureButton = new Element(By.Id("uploadPicture"));
         private Element _address = new Element(By.Id("currentAddress"));
         private Element _stateDropdown = new Element(By.XPath("//div[@id='state']//input[contains(@id,'input')]"));
-        private Element _stateOption(string state) 
-        { 
-            return new Element(By.XPath($"//div[text()='{state}']")); 
-        }
         private Element _cityDropdown = new Element(By.XPath("//div[@id='city']//input[contains(@id,'input')]"));
         private Element _submitButton = new Element(By.Id("submit"));
         private Element _modalPopUp = new Element(By.CssSelector("div[role='document']"));
         private Element _modalHeader = new Element(By.CssSelector("div.modal-header"));
-        private Element _modalData(string data) 
-        { 
-            return new Element(By.XPath($"//td[.='{data}']/following-sibling::td")); 
-        }
         private Element _closeButton = new Element(By.Id("closeLargeModal"));
         private Element _modalTitle = new Element(By.XPath("//div[text()='Thanks for submitting the form']"));
+        private Element _gender(string gender)
+        {
+            return new Element(By.XPath($"//label[.='{gender}']"));
+        }
+        private Element _dayOfBirthValue(string month, string day)
+        {
+            return new Element(By.XPath($"//div[contains(@class,'day') and contains(@aria-label,'{month}') and .='{day}']"));
+        }
+        private Element _hobbyOption(string hobby)
+        {
+            return new Element(By.XPath($"//label[text()='{hobby}']"));
+        }
+        private Element _stateOption(string state)
+        {
+            return new Element(By.XPath($"//div[text()='{state}']"));
+        }
+        private Element _modalData(string data)
+        {
+            return new Element(By.XPath($"//td[.='{data}']/following-sibling::td"));
+        }
 
         //Page Method
         public void InputFirstName(string name)
