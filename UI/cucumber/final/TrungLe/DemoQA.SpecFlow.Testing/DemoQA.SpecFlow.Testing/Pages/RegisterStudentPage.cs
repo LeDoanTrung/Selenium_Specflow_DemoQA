@@ -174,8 +174,6 @@ namespace DemoQA_Selenium.Pages
                 _cityDropdown.InputText(city);
                 _cityDropdown.SendKeys(Keys.Enter);
             }
-
-
         }
 
         public void ClickOnSubmitButton()

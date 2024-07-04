@@ -29,7 +29,7 @@ namespace DemoQA.SpecFlow.Testing.Pages
 
         public void clickOnLoginBtn()
         {
-            loginButton.ClickOnElement();
+            loginButton.ClickAndScrollToElement();
         }
 
         public ProfilePage Login(AccountDTO account)

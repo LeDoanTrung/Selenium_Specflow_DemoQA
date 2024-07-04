@@ -4,8 +4,7 @@ namespace DemoQA_Selenium.DataObjects
 {
     public class StudentDTO
     {
-        [JsonProperty("firstName")] 
-        
+        [JsonProperty("firstName")]  
         public string FirstName { get; set; }
 
         [JsonProperty("lastName")]

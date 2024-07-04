@@ -5,7 +5,7 @@ Background:
 	And there is a book "git_book" in the collection
 
 @Successfully
-Scenario Outline: User search delete book successfully from his collection	
+Scenario Outline: User delete book successfully from his collection	
 	And the user is on the Profile page
 	When the user searchs book with "<title>"
 	And the user clicks on Delete icon

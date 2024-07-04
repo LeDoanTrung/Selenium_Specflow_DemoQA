@@ -4,6 +4,7 @@ using DemoQA.SpecFlow.Core.API;
 using DemoQA.SpecFlow.Core.Configuration;
 using DemoQA.SpecFlow.Core.Extensions;
 using DemoQA.SpecFlow.Service.DataObjects;
+using DemoQA.SpecFlow.Service.DataProvider;
 using DemoQA.SpecFlow.Service.Service;
 using DemoQA.SpecFlow.Testing.Pages;
 using DemoQA_Selenium.Pages;
@@ -20,8 +21,8 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
     [Binding]
     public class BaseStepDefinitions
     {
-        private readonly Dictionary<string, AccountDTO> _account;
-        private readonly Dictionary<string, BookDTO> _book;
+        private readonly UserDataProvider _accountData;
+        private readonly BookDataProvider _bookData;
         private LoginPage _loginPage;
         private UserService _userService;
         private BookService _bookService;
@@ -30,8 +31,8 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
 
         public BaseStepDefinitions(ScenarioContext scenarioContext)
         {
-            this._account = JsonFileUtility.ReadAndParse<Dictionary<string, AccountDTO>>(FileConstant.AccountFilePath.GetAbsolutePath());
-            this._book = JsonFileUtility.ReadAndParse<Dictionary<string, BookDTO>>(FileConstant.BookFilePath.GetAbsolutePath());
+            this._accountData = new UserDataProvider(FileConstant.AccountFilePath.GetAbsolutePath());
+            this._bookData = new BookDataProvider(FileConstant.BookFilePath.GetAbsolutePath());
             this._apiClient = new APIClient(ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:DomainURL"));
             this._userService = new UserService(_apiClient);
             this._bookService = new BookService(_apiClient);
@@ -42,7 +43,7 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
         [Given(@"the user is logged into the application with a ""(.*)""")]
         public async Task GivenTheUserIsLoggedIntoTheApplication(string accountKey)
         {
-            AccountDTO account = _account[accountKey];
+            AccountDTO account = _accountData.GetAccount(accountKey);
             BrowserFactory.WebDriver.Url = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:LoginUrl");
             ProfilePage profilePage = _loginPage.Login(account);
 
@@ -60,7 +61,7 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
         {
             var account = this._scenarioContext[nameof(AccountDTO)] as AccountDTO;
             var token = this._scenarioContext["token"] as string;
-            BookDTO book = _book[bookKey];
+            BookDTO book = _bookData.GetBook(bookKey);
 
             await _bookService.DeleteBookFromCollectionAsync(account.Id, book.ISBN, token);
 
@@ -81,10 +82,10 @@ namespace DemoQA.SpecFlow.Testing.StepDefinitions
             BrowserFactory.WebDriver.Url = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:BookStoreURL");
         }
 
-        [Given(@"the user is on Profile page")]
-        public void GivenTheUserIsOnProfilePage()
+        [Given(@"the user is on Login page")]
+        public void GivenTheUserIsOnLoginPage()
         {
-            BrowserFactory.WebDriver.Url = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:ProfileURL");
+            BrowserFactory.WebDriver.Url = ConfigurationHelper.GetConfigurationByKey(Hooks.Config, "application:LoginURL");
         }
 
         [Given(@"the user is on the Profile page")]
