@@ -97,8 +97,21 @@ namespace DemoQA_Selenium.Pages
 
         public int GetSearchResultCount()
         {
-            var rows = BrowserFactory.WebDriver.FindElements(By.XPath(_searchResultLocator));
-            return rows.Count;
+            int totalResults = 0;
+
+            do
+            {
+                var rows = BrowserFactory.WebDriver.FindElements(By.XPath(_searchResultLocator));
+                totalResults += rows.Count;
+
+                if (_nextButton.IsDisabled())
+                {
+                    break;
+                }
+                _nextButton.ClickOnElement();
+            } while (true);
+
+            return totalResults;
         }
 
         private void SelectBook()
