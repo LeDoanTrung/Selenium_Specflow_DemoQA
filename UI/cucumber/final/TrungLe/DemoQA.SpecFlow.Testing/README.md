@@ -73,9 +73,7 @@ Contact Information: Contact ledoantrung1999@gmail.com to obtain the password re
 Insert Password: Once you have obtained the password, insert it into the "password" field for the "valid_account" account in account.json.
 This ensures that your tests can authenticate properly with the DemoQA application during execution.
 
-### account.json 
-
-## Images Folder (Located in TestData folder):
+### Images Folder (Located in TestData folder):
 The TestData/Images folder contains image files used in the RegisterStudent test case. If you need to update the image data for testing purposes, you can add new image files to this folder. This allows for flexible testing with different images without modifying the test code.
 
 By following these guidelines, you can ensure that your tests run smoothly and can be easily modified to accommodate different test data scenarios.
